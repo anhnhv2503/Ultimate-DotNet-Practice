@@ -1,0 +1,6 @@
+<Solution>
+  <Project Path="Contracts/Contracts.csproj" />
+  <Project Path="Entities/Entities.csproj" Id="55e80abc-d314-4db7-8809-5d2136e19f86" />
+  <Project Path="Repository/Repository.csproj" Id="e51444ce-d18f-47b4-8cfa-1cf67986e12e" />
+  <Project Path="UltimateNetFiApi/UltimateNetFiApi.csproj" />
+</Solution>
