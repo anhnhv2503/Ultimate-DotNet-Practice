@@ -1,6 +1,9 @@
 <Solution>
   <Project Path="Contracts/Contracts.csproj" />
   <Project Path="Entities/Entities.csproj" Id="55e80abc-d314-4db7-8809-5d2136e19f86" />
+  <Project Path="LoggerService/LoggerService.csproj" Id="ec6ab448-8be2-4722-9f8e-759dccb4d449" />
   <Project Path="Repository/Repository.csproj" Id="e51444ce-d18f-47b4-8cfa-1cf67986e12e" />
+  <Project Path="Service.Contracts/Service.Contracts.csproj" Id="e05c67c1-b6e3-453d-8d54-b1fb4e92f52c" />
+  <Project Path="Service/Service.csproj" Id="93e76365-6bf9-463d-aa59-e676995e837c" />
   <Project Path="UltimateNetFiApi/UltimateNetFiApi.csproj" />
 </Solution>
