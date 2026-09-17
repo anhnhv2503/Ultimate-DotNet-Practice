@@ -1,4 +1,5 @@
 
+using Contracts;
 using UltimateNetFiApi.Extensions;
 
 namespace UltimateNetFiApi
@@ -16,26 +17,29 @@ namespace UltimateNetFiApi
             builder.Services.ConfigureLoggerManager();
             builder.Services.ConfigureServiceManager();
             builder.Services.ConfigureSqlContext(builder.Configuration);
+            builder.Services.AddAutoMapper(typeof(Program));
 
-            builder.Services.AddControllers().AddApplicationPart(typeof(Presentation.AssemblyReference).Assembly);
+            builder.Services.AddControllers(config =>
+            {
+                config.RespectBrowserAcceptHeader = true;
+                config.ReturnHttpNotAcceptable = true;
+            })
+                .AddXmlDataContractSerializerFormatters()
+                .AddCustomCSVFormatter()
+                .AddApplicationPart(typeof(Presentation.AssemblyReference).Assembly);
             // Learn more about configuring OpenAPI at https://aka.ms/aspnet/openapi
             builder.Services.AddOpenApi();
 
             var app = builder.Build();
 
-            // Configure the HTTP request pipeline.
-            if (app.Environment.IsDevelopment())
-            {
-                app.MapOpenApi();
-                app.UseDeveloperExceptionPage();
-            }
-            else
-            {
+            //var logger = app.Services.GetRequiredService<ILoggerManager>();
+
+            app.ConfigureExceptionHandler();
+
+            if (app.Environment.IsProduction())
                 app.UseHsts();
-            }
 
             app.UseHttpsRedirection();
-
             app.UseStaticFiles();
             app.UseForwardedHeaders(new ForwardedHeadersOptions
             {
@@ -45,7 +49,6 @@ namespace UltimateNetFiApi
             app.UseCors("CorsPolicy");
 
             app.UseAuthorization();
-
 
             app.MapControllers();
 

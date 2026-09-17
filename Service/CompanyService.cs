@@ -1,6 +1,9 @@
-﻿using Contracts;
+﻿using AutoMapper;
+using Contracts;
+using Entities.Exceptions;
 using Entities.Models;
 using Service.Contracts;
+using Shared.Dto;
 using System;
 using System.Collections.Generic;
 using System.Text;
@@ -11,24 +14,34 @@ namespace Service
     {
         private readonly IRepositoryManager _repository;
         private readonly ILoggerManager _logger;
+        private readonly IMapper _mapper;
         
-        public CompanyService(IRepositoryManager repository, ILoggerManager logger)
+        public CompanyService(IRepositoryManager repository, ILoggerManager logger, IMapper mapper)
         {
             _repository = repository;
             _logger = logger;
+            _mapper = mapper;
         }
 
-        public IEnumerable<Company> GetAllCompanies(bool trackChanges)
+        public IEnumerable<CompanyDto> GetAllCompanies(bool trackChanges)
         {
-            try
-            {
                 var companies = _repository.Company.GetAllCompanies(trackChanges);
-                return companies;
-            }catch(Exception ex)
-            {
-                _logger.LogError($"Some thing went wrong in the {nameof(GetAllCompanies)} service method {ex}");
-                throw;
-            }
+                var companiesDto = _mapper.Map<IEnumerable<CompanyDto>>(companies);
+                return companiesDto;
+           
+        }
+
+        public CompanyDto GetCompany(Guid id, bool trackChanges)
+        {
+            var company = _repository.Company.GetCompany(id, trackChanges);
+
+            if (company is null)
+                throw new NotFoundException($"Not found company with id: {id}");
+            
+
+            var companyDto = _mapper.Map<CompanyDto>(company);
+
+            return companyDto;
         }
     }
 }
