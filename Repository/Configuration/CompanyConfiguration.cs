@@ -7,6 +7,10 @@ using System.Text;
 
 namespace Repository.Configuration
 {
+    /// <summary>
+    /// Seeding ininaldata for the Company entity. 
+    /// This class implements the IEntityTypeConfiguration interface to configure the Company entity and seed initial data into the database.
+    /// </summary>
     public class CompanyConfiguration : IEntityTypeConfiguration<Company>
     {
 

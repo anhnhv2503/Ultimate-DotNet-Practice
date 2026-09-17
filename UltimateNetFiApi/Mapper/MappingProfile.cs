@@ -1,6 +1,7 @@
 ﻿using AutoMapper;
 using Entities.Models;
 using Shared.Dto;
+using Shared.Dtos;
 
 namespace UltimateNetFiApi.Mapper
 {
@@ -13,6 +14,11 @@ namespace UltimateNetFiApi.Mapper
                         opt => opt.MapFrom(x => x.Address + ", " + x.Country));
 
             CreateMap<Employee, EmployeeDto>();
+
+            CreateMap<CompanyCreationDto, Company>();
+
+            CreateMap<EmployeeCreationDto, Employee>();
+            
         }
     }
 }

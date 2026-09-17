@@ -1,5 +1,6 @@
 
 using Contracts;
+using Microsoft.AspNetCore.Mvc;
 using UltimateNetFiApi.Extensions;
 
 namespace UltimateNetFiApi
@@ -18,6 +19,17 @@ namespace UltimateNetFiApi
             builder.Services.ConfigureServiceManager();
             builder.Services.ConfigureSqlContext(builder.Configuration);
             builder.Services.AddAutoMapper(typeof(Program));
+            //This configuration is to suppress the automatic model
+            //state validation filter that is applied by default in ASP.NET Core.
+            //By setting SuppressModelStateInvalidFilter to true, you are telling
+            //the framework not to automatically return a 400 Bad 
+            //Request response when the model state is invalid. Instead,
+            //you can handle model validation errors manually in your controller
+            //actions or use custom middleware to handle them as needed.
+            builder.Services.Configure<ApiBehaviorOptions>(options =>
+            {
+                options.SuppressModelStateInvalidFilter = true;
+            });
 
             builder.Services.AddControllers(config =>
             {

@@ -4,6 +4,7 @@ using Entities.Exceptions;
 using Entities.Models;
 using Service.Contracts;
 using Shared.Dto;
+using Shared.Dtos;
 using System;
 using System.Collections.Generic;
 using System.Text;
@@ -21,6 +22,16 @@ namespace Service
             _repository = repository;
             _logger = logger;
             _mapper = mapper;
+        }
+
+        public CompanyDto CreateCompany(CompanyCreationDto company)
+        {
+            var companyEntity = _mapper.Map<Company>(company);
+            _repository.Company.CreateCompany(companyEntity);
+            _repository.Save();
+
+            var companyToReturn = _mapper.Map<CompanyDto>(companyEntity);
+            return companyToReturn;
         }
 
         public IEnumerable<CompanyDto> GetAllCompanies(bool trackChanges)

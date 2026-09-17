@@ -12,6 +12,16 @@ namespace Repository.Repositories
         {
         }
 
+        public void CreateCompany(Company company)
+        {
+            Create(company);
+        }
+
+        public void DeleteCompany(Company company)
+        {
+            throw new NotImplementedException();
+        }
+
         public IEnumerable<Company> GetAllCompanies(bool trackChange)
         {
             return FindAll(trackChange).OrderBy(c => c.Name).ToList();

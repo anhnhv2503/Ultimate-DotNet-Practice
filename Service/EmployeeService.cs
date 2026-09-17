@@ -1,8 +1,10 @@
 ﻿using AutoMapper;
 using Contracts;
 using Entities.Exceptions;
+using Entities.Models;
 using Service.Contracts;
 using Shared.Dto;
+using Shared.Dtos;
 using System;
 using System.Collections.Generic;
 using System.Text;
@@ -20,6 +22,19 @@ namespace Service
             _repository = repository;
             _logger = logger;
             _mapper = mapper;
+        }
+
+        public EmployeeDto CreateEmployee(Guid companyId, EmployeeCreationDto employee, bool trackChanges)
+        {
+            var company = _repository.Company.GetCompany(companyId, trackChanges);
+            if (company is null) throw new NotFoundException($"Not found Company with id: {companyId}");
+           
+            var employeeEntity = _mapper.Map<Employee>(employee);
+            _repository.Employee.CreateEmployee(companyId, employeeEntity);
+            _repository.Save();
+
+            var employeeToReturn = _mapper.Map<EmployeeDto>(employeeEntity);
+            return employeeToReturn;
         }
 
         public EmployeeDto GetEmployee(Guid companyId, Guid employeeId, bool trackChanges)

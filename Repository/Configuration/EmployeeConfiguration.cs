@@ -7,6 +7,10 @@ using System.Text;
 
 namespace Repository.Configuration
 {
+    /// <summary>
+    /// Seeding initial data for the Employee entity.
+    /// 
+    /// </summary>
     public class EmployeeConfiguration : IEntityTypeConfiguration<Employee>
     {
         public void Configure(EntityTypeBuilder<Employee> builder)
