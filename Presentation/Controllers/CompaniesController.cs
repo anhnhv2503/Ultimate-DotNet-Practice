@@ -39,7 +39,7 @@ namespace Presentation.Controllers
         [HttpPost]
         public IActionResult CreateCompany([FromBody] CompanyCreationDto dto)
         {
-            if(dto is null)
+            if (dto is null)
             {
                 return BadRequest("CompanyCreationDto object is null");
             }

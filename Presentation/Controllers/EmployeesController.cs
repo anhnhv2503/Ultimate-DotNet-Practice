@@ -37,9 +37,10 @@ namespace Presentation.Controllers
         public IActionResult CreateEmployee(Guid companyId, [FromBody] EmployeeCreationDto dto)
         {
             if(dto is null)
-            {
                 return BadRequest("EmployeeCreationDto object is null");
-            }
+            if (!ModelState.IsValid)
+                return UnprocessableEntity(ModelState);
+            
             var response = _service.EmployeeService.CreateEmployee(companyId, dto, false);
             return CreatedAtRoute("EmployeeById", new { companyId, employeeId = response.Id }, response);
         }
