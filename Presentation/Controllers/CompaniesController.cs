@@ -5,6 +5,7 @@ using Shared.Dtos;
 using System;
 using System.Collections.Generic;
 using System.Text;
+using UltimateNetFiApi.ActionFilters;
 
 namespace Presentation.Controllers
 {
@@ -30,6 +31,7 @@ namespace Presentation.Controllers
         }
 
         [HttpGet("{id:guid}", Name = "CompanyById")]
+        //[ServiceFilter(typeof(ValidationFilterAttribute))]
         public async Task<IActionResult> GetCompanyById(Guid id)
         {
             var company = await _serviceManager.CompanyService.GetCompany(id, false);
@@ -37,12 +39,13 @@ namespace Presentation.Controllers
         }
 
         [HttpPost]
+        [ServiceFilter(typeof(ValidationFilterAttribute))]
         public async Task<IActionResult> CreateCompany([FromBody] CompanyCreationDto dto)
         {
-            if (dto is null)
-            {
-                return BadRequest("CompanyCreationDto object is null");
-            }
+            //if (dto is null)
+            //{
+            //    return BadRequest("CompanyCreationDto object is null");
+            //}
             var createdCompany = await _serviceManager.CompanyService.CreateCompany(dto);
 
             return CreatedAtRoute("CompanyById", new { id = createdCompany.Id }, createdCompany);

@@ -1,6 +1,7 @@
 
 using Contracts;
 using Microsoft.AspNetCore.Mvc;
+using UltimateNetFiApi.ActionFilters;
 using UltimateNetFiApi.Extensions;
 
 namespace UltimateNetFiApi
@@ -30,6 +31,7 @@ namespace UltimateNetFiApi
             {
                 options.SuppressModelStateInvalidFilter = true;
             });
+            builder.Services.AddScoped<ValidationFilterAttribute>();
 
             builder.Services.AddControllers(config =>
             {

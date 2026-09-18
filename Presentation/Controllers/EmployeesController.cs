@@ -4,6 +4,7 @@ using Shared.Dtos;
 using System;
 using System.Collections.Generic;
 using System.Text;
+using UltimateNetFiApi.ActionFilters;
 
 namespace Presentation.Controllers
 {
@@ -34,12 +35,13 @@ namespace Presentation.Controllers
         }
 
         [HttpPost]
+        [ServiceFilter(typeof(ValidationFilterAttribute))]
         public async Task<IActionResult> CreateEmployee(Guid companyId, [FromBody] EmployeeCreationDto dto)
         {
-            if(dto is null)
-                return BadRequest("EmployeeCreationDto object is null");
-            if (!ModelState.IsValid)
-                return UnprocessableEntity(ModelState);
+            //if(dto is null)
+            //    return BadRequest("EmployeeCreationDto object is null");
+            //if (!ModelState.IsValid)
+            //    return UnprocessableEntity(ModelState);
             
             var response = await _service.EmployeeService.CreateEmployee(companyId, dto, false);
             return CreatedAtRoute("EmployeeById", new { companyId, employeeId = response.Id }, response);

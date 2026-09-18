@@ -48,7 +48,7 @@ namespace Service
 
             if (company is null)
                 throw new NotFoundException($"Not found company with id: {id}");
-            
+
 
             var companyDto = _mapper.Map<CompanyDto>(company);
 
