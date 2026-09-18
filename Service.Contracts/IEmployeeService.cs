@@ -8,8 +8,8 @@ namespace Service.Contracts
 {
     public interface IEmployeeService
     {
-        IEnumerable<EmployeeDto> GetEmployees(Guid companyId, bool trackChanges);
-        EmployeeDto GetEmployee(Guid companyId, Guid employeeId, bool trackChanges);
-        EmployeeDto CreateEmployee(Guid companyId, EmployeeCreationDto employee, bool trackChanges);
+        Task<IEnumerable<EmployeeDto>> GetEmployees(Guid companyId, bool trackChanges);
+        Task<EmployeeDto> GetEmployee(Guid companyId, Guid employeeId, bool trackChanges);
+        Task<EmployeeDto> CreateEmployee(Guid companyId, EmployeeCreationDto employee, bool trackChanges);
     }
 }

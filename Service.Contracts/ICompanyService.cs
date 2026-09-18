@@ -8,9 +8,9 @@ namespace Service.Contracts
 {
     public interface ICompanyService
     {
-        IEnumerable<CompanyDto> GetAllCompanies(bool trackChanges);
-        CompanyDto GetCompany(Guid id, bool trackChanges);
+        Task<IEnumerable<CompanyDto>> GetAllCompanies(bool trackChanges);
+        Task<CompanyDto> GetCompany(Guid id, bool trackChanges);
 
-        CompanyDto CreateCompany(CompanyCreationDto company);
+        Task<CompanyDto> CreateCompany(CompanyCreationDto company);
     }
 }

@@ -20,28 +20,28 @@ namespace Presentation.Controllers
         }
 
         [HttpGet]
-        public IActionResult GetEmployees(Guid companyId)
+        public async Task<IActionResult> GetEmployees(Guid companyId)
         {
-            return Ok(_service.EmployeeService.GetEmployees(companyId, false));
+            return Ok(await _service.EmployeeService.GetEmployees(companyId, false));
         }
 
         [HttpGet("{employeeId}", Name = "EmployeeById")]
-        public IActionResult GetEmployeeById(Guid companyId, Guid employeeId)
+        public async Task<IActionResult> GetEmployeeById(Guid companyId, Guid employeeId)
         {
-            var reponse = _service.EmployeeService.GetEmployee(companyId, employeeId, false);
+            var reponse = await _service.EmployeeService.GetEmployee(companyId, employeeId, false);
 
             return Ok(reponse);
         }
 
         [HttpPost]
-        public IActionResult CreateEmployee(Guid companyId, [FromBody] EmployeeCreationDto dto)
+        public async Task<IActionResult> CreateEmployee(Guid companyId, [FromBody] EmployeeCreationDto dto)
         {
             if(dto is null)
                 return BadRequest("EmployeeCreationDto object is null");
             if (!ModelState.IsValid)
                 return UnprocessableEntity(ModelState);
             
-            var response = _service.EmployeeService.CreateEmployee(companyId, dto, false);
+            var response = await _service.EmployeeService.CreateEmployee(companyId, dto, false);
             return CreatedAtRoute("EmployeeById", new { companyId, employeeId = response.Id }, response);
         }
     }

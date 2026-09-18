@@ -20,30 +20,30 @@ namespace Presentation.Controllers
         }
 
         [HttpGet]
-        public IActionResult GetCompanies()
+        public async Task<IActionResult> GetCompanies()
         {
 
-            var companies = _serviceManager.CompanyService.GetAllCompanies(true);
+            var companies = await _serviceManager.CompanyService.GetAllCompanies(true);
 
             return Ok(companies);
 
         }
 
         [HttpGet("{id:guid}", Name = "CompanyById")]
-        public IActionResult GetCompanyById(Guid id)
+        public async Task<IActionResult> GetCompanyById(Guid id)
         {
-            var company = _serviceManager.CompanyService.GetCompany(id, false);
+            var company = await _serviceManager.CompanyService.GetCompany(id, false);
             return Ok(company);
         }
 
         [HttpPost]
-        public IActionResult CreateCompany([FromBody] CompanyCreationDto dto)
+        public async Task<IActionResult> CreateCompany([FromBody] CompanyCreationDto dto)
         {
             if (dto is null)
             {
                 return BadRequest("CompanyCreationDto object is null");
             }
-            var createdCompany = _serviceManager.CompanyService.CreateCompany(dto);
+            var createdCompany = await _serviceManager.CompanyService.CreateCompany(dto);
 
             return CreatedAtRoute("CompanyById", new { id = createdCompany.Id }, createdCompany);
         }

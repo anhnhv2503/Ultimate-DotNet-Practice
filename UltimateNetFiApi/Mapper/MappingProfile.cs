@@ -15,6 +15,8 @@ namespace UltimateNetFiApi.Mapper
 
             CreateMap<Employee, EmployeeDto>();
 
+            CreateMap<EmployeeDto, Employee>();
+
             CreateMap<CompanyCreationDto, Company>();
 
             CreateMap<EmployeeCreationDto, Employee>();

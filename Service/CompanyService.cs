@@ -24,27 +24,27 @@ namespace Service
             _mapper = mapper;
         }
 
-        public CompanyDto CreateCompany(CompanyCreationDto company)
+        public async Task<CompanyDto> CreateCompany(CompanyCreationDto company)
         {
             var companyEntity = _mapper.Map<Company>(company);
             _repository.Company.CreateCompany(companyEntity);
-            _repository.Save();
+            await _repository.SaveAsync();
 
             var companyToReturn = _mapper.Map<CompanyDto>(companyEntity);
             return companyToReturn;
         }
 
-        public IEnumerable<CompanyDto> GetAllCompanies(bool trackChanges)
+        public async Task<IEnumerable<CompanyDto>> GetAllCompanies(bool trackChanges)
         {
-                var companies = _repository.Company.GetAllCompanies(trackChanges);
+                var companies = await _repository.Company.GetAllCompanies(trackChanges);
                 var companiesDto = _mapper.Map<IEnumerable<CompanyDto>>(companies);
                 return companiesDto;
            
         }
 
-        public CompanyDto GetCompany(Guid id, bool trackChanges)
+        public async Task<CompanyDto> GetCompany(Guid id, bool trackChanges)
         {
-            var company = _repository.Company.GetCompany(id, trackChanges);
+            var company = await _repository.Company.GetCompany(id, trackChanges);
 
             if (company is null)
                 throw new NotFoundException($"Not found company with id: {id}");

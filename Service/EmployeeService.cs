@@ -7,6 +7,7 @@ using Shared.Dto;
 using Shared.Dtos;
 using System;
 using System.Collections.Generic;
+using System.Runtime.CompilerServices;
 using System.Text;
 
 namespace Service
@@ -24,25 +25,25 @@ namespace Service
             _mapper = mapper;
         }
 
-        public EmployeeDto CreateEmployee(Guid companyId, EmployeeCreationDto employee, bool trackChanges)
+        public async Task<EmployeeDto> CreateEmployee(Guid companyId, EmployeeCreationDto employee, bool trackChanges)
         {
             var company = _repository.Company.GetCompany(companyId, trackChanges);
             if (company is null) throw new NotFoundException($"Not found Company with id: {companyId}");
            
             var employeeEntity = _mapper.Map<Employee>(employee);
             _repository.Employee.CreateEmployee(companyId, employeeEntity);
-            _repository.Save();
+            await _repository.SaveAsync();
 
             var employeeToReturn = _mapper.Map<EmployeeDto>(employeeEntity);
             return employeeToReturn;
         }
 
-        public EmployeeDto GetEmployee(Guid companyId, Guid employeeId, bool trackChanges)
+        public async Task<EmployeeDto> GetEmployee(Guid companyId, Guid employeeId, bool trackChanges)
         {
-            var company = _repository.Company.GetCompany(companyId, trackChanges);
+            var company = await _repository.Company.GetCompany(companyId, trackChanges);
             if (company is null) throw new NotFoundException($"Not found Company with id: {companyId}");
 
-            var employee = _repository.Employee.GetEmployee(companyId, employeeId, trackChanges);
+            var employee = await _repository.Employee.GetEmployee(companyId, employeeId, trackChanges);
             if (employee is null) throw new NotFoundException($"Not found Employee with id: {employeeId}");
             
             var employeeDto = _mapper.Map<EmployeeDto>(employee);
@@ -50,12 +51,12 @@ namespace Service
             return employeeDto; 
         }
 
-        public IEnumerable<EmployeeDto> GetEmployees(Guid companyId, bool trackChanges)
+        public async Task<IEnumerable<EmployeeDto>> GetEmployees(Guid companyId, bool trackChanges)
         {
-            var company = _repository.Company.GetCompany(companyId, trackChanges);
+            var company = await _repository.Company.GetCompany(companyId, trackChanges);
             if (company is null) throw new NotFoundException($"Not found company with id: {companyId}");
 
-            var employees = _repository.Employee.GetEmployees(companyId, trackChanges);
+            var employees = await _repository.Employee.GetEmployees(companyId, trackChanges);
             var employeesDto = _mapper.Map<IEnumerable<EmployeeDto>>(employees);
 
             return employeesDto;

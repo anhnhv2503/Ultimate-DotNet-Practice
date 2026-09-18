@@ -1,5 +1,6 @@
 ﻿using Contracts;
 using Entities.Models;
+using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;
 using System.Text;
@@ -18,14 +19,14 @@ namespace Repository.Repositories
             Create(employee);
         }
 
-        public Employee GetEmployee(Guid companyId, Guid employeeId, bool trackChanges)
+        public async Task<Employee> GetEmployee(Guid companyId, Guid employeeId, bool trackChanges)
         {
-            return FindByCondition(e => e.CompanyId.Equals(companyId) && e.Id.Equals(employeeId), trackChanges).OrderBy(e => e.CompanyId).FirstOrDefault();
+            return await FindByCondition(e => e.CompanyId.Equals(companyId) && e.Id.Equals(employeeId), trackChanges).OrderBy(e => e.CompanyId).FirstOrDefaultAsync();
         }
 
-        public IEnumerable<Employee> GetEmployees(Guid companyId, bool trackChanges)
+        public async Task<IEnumerable<Employee>> GetEmployees(Guid companyId, bool trackChanges)
         {
-            return FindByCondition(e => e.CompanyId.Equals(companyId), trackChanges).OrderBy(e => e.CompanyId).ToList();
+            return await FindByCondition(e => e.CompanyId.Equals(companyId), trackChanges).OrderBy(e => e.CompanyId).ToListAsync();
         }
     }
 }

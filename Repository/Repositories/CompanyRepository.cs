@@ -1,5 +1,6 @@
 ﻿using Contracts;
 using Entities.Models;
+using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;
 using System.Text;
@@ -22,14 +23,14 @@ namespace Repository.Repositories
             throw new NotImplementedException();
         }
 
-        public IEnumerable<Company> GetAllCompanies(bool trackChange)
+        public async Task<IEnumerable<Company>> GetAllCompanies(bool trackChange)
         {
-            return FindAll(trackChange).OrderBy(c => c.Name).ToList();
+            return await FindAll(trackChange).OrderBy(c => c.Name).ToListAsync();
         }
 
-        public Company GetCompany(Guid companyId, bool trackChange)
+        public async Task<Company> GetCompany(Guid companyId, bool trackChange)
         {
-            return FindByCondition(c => c.Id.Equals(companyId), trackChange).SingleOrDefault();
+            return await FindByCondition(c => c.Id.Equals(companyId), trackChange).SingleOrDefaultAsync();
         }
     }
 }
