@@ -21,9 +21,9 @@ namespace Presentation.Controllers
         }
 
         [HttpGet]
-        public async Task<IActionResult> GetEmployees(Guid companyId)
+        public async Task<IActionResult> GetEmployees(Guid companyId, int page, int size)
         {
-            return Ok(await _service.EmployeeService.GetEmployees(companyId, false));
+            return Ok(await _service.EmployeeService.GetEmployees(companyId, false, page, size));
         }
 
         [HttpGet("{employeeId}", Name = "EmployeeById")]
@@ -45,6 +45,17 @@ namespace Presentation.Controllers
             
             var response = await _service.EmployeeService.CreateEmployee(companyId, dto, false);
             return CreatedAtRoute("EmployeeById", new { companyId, employeeId = response.Id }, response);
+        }
+
+        [HttpPost("multi")]
+        [ServiceFilter(typeof(ValidationFilterAttribute))]
+        public async Task<IActionResult> CreateEmployees(Guid companyId, [FromBody] IEnumerable<EmployeeCreationDto> employeeDtos)
+        {
+            await _service.EmployeeService.CreateEmpoyees(companyId, employeeDtos, false);
+            return Ok(new
+            {
+                message = $"{employeeDtos.Count()} employee(s) created"
+            });
         }
     }
 }

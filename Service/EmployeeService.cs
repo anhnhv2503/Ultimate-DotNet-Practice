@@ -27,7 +27,7 @@ namespace Service
 
         public async Task<EmployeeDto> CreateEmployee(Guid companyId, EmployeeCreationDto employee, bool trackChanges)
         {
-            var company = _repository.Company.GetCompany(companyId, trackChanges);
+            var company = await _repository.Company.GetCompany(companyId, trackChanges);
             if (company is null) throw new NotFoundException($"Not found Company with id: {companyId}");
            
             var employeeEntity = _mapper.Map<Employee>(employee);
@@ -36,6 +36,18 @@ namespace Service
 
             var employeeToReturn = _mapper.Map<EmployeeDto>(employeeEntity);
             return employeeToReturn;
+        }
+
+        public async Task CreateEmpoyees(Guid companyId, IEnumerable<EmployeeCreationDto> employeeDtos, bool trackChanges)
+        {
+            var company = await _repository.Company.GetCompany(companyId, trackChanges);
+            if (company is null) throw new NotFoundException($"Not found Company with id: {companyId}");
+            foreach(var dto in employeeDtos)
+            {
+                var employeeEntity = _mapper.Map<Employee>(dto);
+                _repository.Employee.CreateEmployee(companyId, employeeEntity);
+                await _repository.SaveAsync();
+            }
         }
 
         public async Task<EmployeeDto> GetEmployee(Guid companyId, Guid employeeId, bool trackChanges)

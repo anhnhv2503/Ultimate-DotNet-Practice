@@ -13,6 +13,10 @@ namespace Repository
 
         public RepositoryBase(RepositoryContext repositoryContext) => RepositoryContext = repositoryContext;
 
+        public int Count()
+        {
+            return RepositoryContext.Set<T>().Count();
+        }
 
         public void Create(T entity)
         {
