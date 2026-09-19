@@ -9,6 +9,7 @@ using System;
 using System.Collections.Generic;
 using System.Runtime.CompilerServices;
 using System.Text;
+using Shared.Paging;
 
 namespace Service
 {
@@ -38,7 +39,7 @@ namespace Service
             return employeeToReturn;
         }
 
-        public async Task CreateEmpoyees(Guid companyId, IEnumerable<EmployeeCreationDto> employeeDtos, bool trackChanges)
+        public async Task CreateEmployees(Guid companyId, IEnumerable<EmployeeCreationDto> employeeDtos, bool trackChanges)
         {
             var company = await _repository.Company.GetCompany(companyId, trackChanges);
             if (company is null) throw new NotFoundException($"Not found Company with id: {companyId}");
@@ -63,15 +64,27 @@ namespace Service
             return employeeDto; 
         }
 
-        public async Task<IEnumerable<EmployeeDto>> GetEmployees(Guid companyId, bool trackChanges)
+        public async Task<MetaData<IEnumerable<EmployeeDto>>> GetEmployees(
+            Guid companyId,
+            bool trackChanges,
+            int page, int size
+            )
         {
             var company = await _repository.Company.GetCompany(companyId, trackChanges);
             if (company is null) throw new NotFoundException($"Not found company with id: {companyId}");
 
-            var employees = await _repository.Employee.GetEmployees(companyId, trackChanges);
-            var employeesDto = _mapper.Map<IEnumerable<EmployeeDto>>(employees);
+            var metaDataEmployees = await _repository.Employee.GetEmployees(companyId, trackChanges, page, size);
 
-            return employeesDto;
+            var employeeDto = _mapper.Map<IEnumerable<EmployeeDto>>(metaDataEmployees.Data);
+
+            return new MetaData<IEnumerable<EmployeeDto>>()
+            {
+                Data = employeeDto,
+                TotalCount = metaDataEmployees.TotalCount,
+                CurrentPage = metaDataEmployees.CurrentPage,
+                TotalPages = metaDataEmployees.TotalPages
+            };
+
         }
     }
 }

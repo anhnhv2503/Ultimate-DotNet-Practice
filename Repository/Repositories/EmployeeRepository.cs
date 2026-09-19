@@ -4,6 +4,7 @@ using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;
 using System.Text;
+using Shared.Paging;
 
 namespace Repository.Repositories
 {
@@ -21,12 +22,28 @@ namespace Repository.Repositories
 
         public async Task<Employee> GetEmployee(Guid companyId, Guid employeeId, bool trackChanges)
         {
-            return await FindByCondition(e => e.CompanyId.Equals(companyId) && e.Id.Equals(employeeId), trackChanges).OrderBy(e => e.CompanyId).FirstOrDefaultAsync();
+            return await FindByCondition(e => e.CompanyId.Equals(companyId) && e.Id.Equals(employeeId), trackChanges)
+                .OrderBy(e => e.CompanyId)
+                .FirstOrDefaultAsync();
         }
 
-        public async Task<IEnumerable<Employee>> GetEmployees(Guid companyId, bool trackChanges)
+        public async Task<MetaData<IEnumerable<Employee>>> GetEmployees(Guid companyId, bool trackChanges, int page,
+            int size)
         {
-            return await FindByCondition(e => e.CompanyId.Equals(companyId), trackChanges).OrderBy(e => e.CompanyId).ToListAsync();
+            var totalCount = CountByCondition(e => e.CompanyId.Equals(companyId));
+            var totalPages = (int) Math.Ceiling((double) totalCount / size);
+            var employees =  await FindByCondition(e => e.CompanyId.Equals(companyId), trackChanges)
+                .OrderBy(e => e.CompanyId)
+                .Skip((page - 1) * size)
+                .Take(size)
+                .ToListAsync();
+            return new MetaData<IEnumerable<Employee>>()
+            {
+                Data = employees,
+                TotalCount = totalCount,
+                CurrentPage = page,
+                TotalPages = totalPages
+            };
         }
     }
 }

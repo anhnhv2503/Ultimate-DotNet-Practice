@@ -13,11 +13,6 @@ namespace Repository
 
         public RepositoryBase(RepositoryContext repositoryContext) => RepositoryContext = repositoryContext;
 
-        public int Count()
-        {
-            return RepositoryContext.Set<T>().Count();
-        }
-
         public void Create(T entity)
         {
             RepositoryContext.Set<T>().Add(entity);
@@ -26,6 +21,11 @@ namespace Repository
         public void Delete(T entity)
         {
             RepositoryContext.Set<T>().Remove(entity);
+        }
+
+        public int CountByCondition(Expression<Func<T,bool>> expression)
+        {
+            return RepositoryContext.Set<T>().Where(expression).Count();
         }
 
         public IQueryable<T> FindAll(bool trachChanges) => 

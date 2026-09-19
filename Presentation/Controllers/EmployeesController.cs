@@ -23,7 +23,9 @@ namespace Presentation.Controllers
         [HttpGet]
         public async Task<IActionResult> GetEmployees(Guid companyId, int page, int size)
         {
-            return Ok(await _service.EmployeeService.GetEmployees(companyId, false, page, size));
+            var pagedResult = await _service.EmployeeService.GetEmployees(companyId, false, page, size);
+            return Ok(pagedResult);
+            // return Ok(await _service.EmployeeService.GetEmployees(companyId, false, page, size));
         }
 
         [HttpGet("{employeeId}", Name = "EmployeeById")]
@@ -51,7 +53,7 @@ namespace Presentation.Controllers
         [ServiceFilter(typeof(ValidationFilterAttribute))]
         public async Task<IActionResult> CreateEmployees(Guid companyId, [FromBody] IEnumerable<EmployeeCreationDto> employeeDtos)
         {
-            await _service.EmployeeService.CreateEmpoyees(companyId, employeeDtos, false);
+            await _service.EmployeeService.CreateEmployees(companyId, employeeDtos, false);
             return Ok(new
             {
                 message = $"{employeeDtos.Count()} employee(s) created"

@@ -12,6 +12,6 @@ namespace Contracts
         void Create(T entity);
         void Update(T entity);
         void Delete(T entity);
-        int Count();
+        int CountByCondition(Expression<Func<T,bool>> expression);
     }
 }
