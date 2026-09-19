@@ -1,8 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Text;
-
-namespace Shared.Dto
+﻿namespace Shared.Dto
 {
     [Serializable]
     public record CompanyDto

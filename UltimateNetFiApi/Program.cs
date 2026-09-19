@@ -1,6 +1,6 @@
-
-using Contracts;
+using Microsoft.AspNetCore.HttpOverrides;
 using Microsoft.AspNetCore.Mvc;
+using Presentation;
 using UltimateNetFiApi.ActionFilters;
 using UltimateNetFiApi.Extensions;
 
@@ -40,7 +40,7 @@ namespace UltimateNetFiApi
             })
                 .AddXmlDataContractSerializerFormatters()
                 .AddCustomCSVFormatter()
-                .AddApplicationPart(typeof(Presentation.AssemblyReference).Assembly);
+                .AddApplicationPart(typeof(AssemblyReference).Assembly);
             // Learn more about configuring OpenAPI at https://aka.ms/aspnet/openapi
             builder.Services.AddOpenApi();
 
@@ -57,7 +57,7 @@ namespace UltimateNetFiApi
             app.UseStaticFiles();
             app.UseForwardedHeaders(new ForwardedHeadersOptions
             {
-                ForwardedHeaders = Microsoft.AspNetCore.HttpOverrides.ForwardedHeaders.All
+                ForwardedHeaders = ForwardedHeaders.All
             });
 
             app.UseCors("CorsPolicy");

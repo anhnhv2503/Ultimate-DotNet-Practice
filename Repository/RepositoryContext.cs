@@ -1,9 +1,6 @@
 ﻿using Entities.Models;
 using Microsoft.EntityFrameworkCore;
 using Repository.Configuration;
-using System;
-using System.Collections.Generic;
-using System.Text;
 
 namespace Repository
 {

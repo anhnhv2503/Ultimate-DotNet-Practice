@@ -1,8 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Text;
-
-namespace Service.Contracts
+﻿namespace Service.Contracts
 {
     public interface IServiceManager
     {

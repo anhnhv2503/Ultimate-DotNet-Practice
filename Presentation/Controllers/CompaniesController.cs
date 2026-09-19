@@ -1,10 +1,6 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using Service.Contracts;
-using Shared.Dto;
 using Shared.Dtos;
-using System;
-using System.Collections.Generic;
-using System.Text;
 using UltimateNetFiApi.ActionFilters;
 
 namespace Presentation.Controllers
@@ -21,10 +17,10 @@ namespace Presentation.Controllers
         }
 
         [HttpGet]
-        public async Task<IActionResult> GetCompanies()
+        public async Task<IActionResult> GetCompanies(int page, int size)
         {
 
-            var companies = await _serviceManager.CompanyService.GetAllCompanies(true);
+            var companies = await _serviceManager.CompanyService.GetAllCompanies(true, page, size);
 
             return Ok(companies);
 

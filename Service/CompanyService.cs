@@ -5,9 +5,7 @@ using Entities.Models;
 using Service.Contracts;
 using Shared.Dto;
 using Shared.Dtos;
-using System;
-using System.Collections.Generic;
-using System.Text;
+using Shared.Paging;
 
 namespace Service
 {
@@ -34,12 +32,20 @@ namespace Service
             return companyToReturn;
         }
 
-        public async Task<IEnumerable<CompanyDto>> GetAllCompanies(bool trackChanges)
+        public async Task<MetaData<IEnumerable<CompanyDto>>> GetAllCompanies(bool trackChanges, int page, int size)
         {
-                var companies = await _repository.Company.GetAllCompanies(trackChanges);
-                var companiesDto = _mapper.Map<IEnumerable<CompanyDto>>(companies);
-                return companiesDto;
-           
+                var pagedCompanies = await _repository.Company.GetAllCompanies(trackChanges, page, size);
+                var totalCount = pagedCompanies.totalCount;
+                var totalPages = (int) Math.Ceiling((double) totalCount / size);
+                var companiesDto = _mapper.Map<IEnumerable<CompanyDto>>(pagedCompanies.pagedCompanies);
+                return new MetaData<IEnumerable<CompanyDto>>()
+                {
+                    Data = companiesDto,
+                    TotalCount = totalCount,
+                    CurrentPage = page,
+                    TotalPages = totalPages
+                };
+
         }
 
         public async Task<CompanyDto> GetCompany(Guid id, bool trackChanges)

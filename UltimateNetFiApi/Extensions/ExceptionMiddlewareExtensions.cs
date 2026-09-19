@@ -1,9 +1,7 @@
-﻿using Contracts;
+﻿using System.Net;
 using Entities.Error;
 using Entities.Exceptions;
 using Microsoft.AspNetCore.Diagnostics;
-using Microsoft.AspNetCore.Http.HttpResults;
-using System.Net;
 
 namespace UltimateNetFiApi.Extensions
 {

@@ -1,14 +1,12 @@
 ﻿using Shared.Dto;
 using Shared.Dtos;
-using System;
-using System.Collections.Generic;
-using System.Text;
+using Shared.Paging;
 
 namespace Service.Contracts
 {
     public interface ICompanyService
     {
-        Task<IEnumerable<CompanyDto>> GetAllCompanies(bool trackChanges);
+        Task<MetaData<IEnumerable<CompanyDto>>> GetAllCompanies(bool trackChanges, int page, int size);
         Task<CompanyDto> GetCompany(Guid id, bool trackChanges);
 
         Task<CompanyDto> CreateCompany(CompanyCreationDto company);

@@ -1,9 +1,6 @@
 ﻿using Contracts;
 using Entities.Models;
 using Microsoft.EntityFrameworkCore;
-using System;
-using System.Collections.Generic;
-using System.Text;
 
 namespace Repository.Repositories
 {
@@ -23,9 +20,15 @@ namespace Repository.Repositories
             throw new NotImplementedException();
         }
 
-        public async Task<IEnumerable<Company>> GetAllCompanies(bool trackChange)
+        public async Task<(IEnumerable<Company> pagedCompanies, int totalCount)> GetAllCompanies(bool trackChange, int page, int size)
         {
-            return await FindAll(trackChange).OrderBy(c => c.Name).ToListAsync();
+            var totalCount = CountByCondition(c => true);
+            var pagedCompanies = await FindAll(trackChange).OrderBy(c => c.Name)
+                .Skip((page - 1) * size)
+                .Take(size)
+                .ToListAsync(); 
+            
+            return (pagedCompanies, totalCount);
         }
 
         public async Task<Company> GetCompany(Guid companyId, bool trackChange)

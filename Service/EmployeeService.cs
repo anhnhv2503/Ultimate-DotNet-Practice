@@ -1,14 +1,12 @@
-﻿using AutoMapper;
+﻿using System.Dynamic;
+using AutoMapper;
 using Contracts;
 using Entities.Exceptions;
 using Entities.Models;
 using Service.Contracts;
 using Shared.Dto;
 using Shared.Dtos;
-using System;
-using System.Collections.Generic;
-using System.Runtime.CompilerServices;
-using System.Text;
+using Shared.Filters;
 using Shared.Paging;
 
 namespace Service
@@ -19,18 +17,24 @@ namespace Service
         private readonly ILoggerManager _logger;
         private readonly IMapper _mapper;
 
-        public EmployeeService(IRepositoryManager repository, ILoggerManager logger, IMapper mapper)
+        public EmployeeService(IRepositoryManager repository, ILoggerManager logger, 
+            IMapper mapper) 
+        { 
+            _repository = repository; 
+            _logger = logger; 
+            _mapper = mapper; 
+        } 
+
+        private async Task CheckCompanyExists(Guid companyId, bool trackChanges)
         {
-            _repository = repository;
-            _logger = logger;
-            _mapper = mapper;
+            var company = await _repository.Company.GetCompany(companyId, trackChanges);
+            if (company is null) throw new NotFoundException($"Not found Company with id: {companyId}");
+
         }
 
         public async Task<EmployeeDto> CreateEmployee(Guid companyId, EmployeeCreationDto employee, bool trackChanges)
         {
-            var company = await _repository.Company.GetCompany(companyId, trackChanges);
-            if (company is null) throw new NotFoundException($"Not found Company with id: {companyId}");
-           
+            await CheckCompanyExists(companyId, trackChanges);
             var employeeEntity = _mapper.Map<Employee>(employee);
             _repository.Employee.CreateEmployee(companyId, employeeEntity);
             await _repository.SaveAsync();
@@ -41,8 +45,7 @@ namespace Service
 
         public async Task CreateEmployees(Guid companyId, IEnumerable<EmployeeCreationDto> employeeDtos, bool trackChanges)
         {
-            var company = await _repository.Company.GetCompany(companyId, trackChanges);
-            if (company is null) throw new NotFoundException($"Not found Company with id: {companyId}");
+            await CheckCompanyExists(companyId, trackChanges);
             foreach(var dto in employeeDtos)
             {
                 var employeeEntity = _mapper.Map<Employee>(dto);
@@ -53,9 +56,7 @@ namespace Service
 
         public async Task<EmployeeDto> GetEmployee(Guid companyId, Guid employeeId, bool trackChanges)
         {
-            var company = await _repository.Company.GetCompany(companyId, trackChanges);
-            if (company is null) throw new NotFoundException($"Not found Company with id: {companyId}");
-
+            await CheckCompanyExists(companyId, trackChanges);
             var employee = await _repository.Employee.GetEmployee(companyId, employeeId, trackChanges);
             if (employee is null) throw new NotFoundException($"Not found Employee with id: {employeeId}");
             
@@ -67,22 +68,27 @@ namespace Service
         public async Task<MetaData<IEnumerable<EmployeeDto>>> GetEmployees(
             Guid companyId,
             bool trackChanges,
-            int page, int size
+            int page, int size,
+            EmployeeFilterParameters parameters
             )
         {
-            var company = await _repository.Company.GetCompany(companyId, trackChanges);
-            if (company is null) throw new NotFoundException($"Not found company with id: {companyId}");
+            await CheckCompanyExists(companyId, trackChanges);
+            if(!parameters.ValidAgeRange) throw new BadRequestException("Invalid age range");
+            
+            var metaDataEmployees = await _repository.Employee.GetEmployees(companyId, trackChanges, page, size, parameters);
+            
+            var pagedEmployees = metaDataEmployees.pagedEmployees;
+            var totalCount = metaDataEmployees.totalCount;
+            var totalPages = (int) Math.Ceiling((double) totalCount / size);
 
-            var metaDataEmployees = await _repository.Employee.GetEmployees(companyId, trackChanges, page, size);
-
-            var employeeDto = _mapper.Map<IEnumerable<EmployeeDto>>(metaDataEmployees.Data);
-
+            var employeeDto = _mapper.Map<IEnumerable<EmployeeDto>>(pagedEmployees);
+           
             return new MetaData<IEnumerable<EmployeeDto>>()
             {
                 Data = employeeDto,
-                TotalCount = metaDataEmployees.TotalCount,
-                CurrentPage = metaDataEmployees.CurrentPage,
-                TotalPages = metaDataEmployees.TotalPages
+                TotalCount = totalCount,
+                CurrentPage = page,
+                TotalPages = totalPages
             };
 
         }
