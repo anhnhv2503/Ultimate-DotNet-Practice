@@ -32,11 +32,15 @@ namespace UltimateNetFiApi
                 options.SuppressModelStateInvalidFilter = true;
             });
             builder.Services.AddScoped<ValidationFilterAttribute>();
-
+            builder.Services.ConfigureResponseCaching();
+            builder.Services.ConfigureHttpCacheHeaders();
             builder.Services.AddControllers(config =>
             {
                 config.RespectBrowserAcceptHeader = true;
                 config.ReturnHttpNotAcceptable = true;
+                config.CacheProfiles.Add("120SecondsDuration", new CacheProfile { 
+                    Duration = 120 
+                }); 
             })
                 .AddXmlDataContractSerializerFormatters()
                 .AddCustomCSVFormatter()
@@ -62,6 +66,9 @@ namespace UltimateNetFiApi
 
             app.UseCors("CorsPolicy");
 
+            app.UseResponseCaching();
+            //Microsoft recommends having UseCors before UseResponseCaching
+            app.UseHttpCacheHeaders();
             app.UseAuthorization();
 
             app.MapControllers();

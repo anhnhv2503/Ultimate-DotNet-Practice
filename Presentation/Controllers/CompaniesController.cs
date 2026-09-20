@@ -1,4 +1,5 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using Marvin.Cache.Headers;
+using Microsoft.AspNetCore.Mvc;
 using Service.Contracts;
 using Shared.Dtos;
 using UltimateNetFiApi.ActionFilters;
@@ -28,6 +29,10 @@ namespace Presentation.Controllers
 
         [HttpGet("{id:guid}", Name = "CompanyById")]
         //[ServiceFilter(typeof(ValidationFilterAttribute))]
+        //[ResponseCache(Duration = 60)] //==> Create a Cache Control Header with a public cache duration of 60 seconds
+        // [ResponseCache(CacheProfileName = "120SecondsDuration")]
+        [HttpCacheExpiration(CacheLocation = CacheLocation.Public, MaxAge = 111)]
+        [HttpCacheValidation(MustRevalidate = false)]
         public async Task<IActionResult> GetCompanyById(Guid id)
         {
             var company = await _serviceManager.CompanyService.GetCompany(id, false);
