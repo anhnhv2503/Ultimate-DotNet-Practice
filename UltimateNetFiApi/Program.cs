@@ -21,6 +21,10 @@ namespace UltimateNetFiApi
             builder.Services.ConfigureServiceManager();
             builder.Services.ConfigureSqlContext(builder.Configuration);
             builder.Services.AddAutoMapper(typeof(Program));
+            builder.Services.AddAuthentication();
+            builder.Services.ConfigureIdentity();
+            builder.Services.ConfigureJWT(builder.Configuration);
+            builder.Services.AddAuthorization();
             //This configuration is to suppress the automatic model
             //state validation filter that is applied by default in ASP.NET Core.
             //By setting SuppressModelStateInvalidFilter to true, you are telling
@@ -32,6 +36,7 @@ namespace UltimateNetFiApi
             {
                 options.SuppressModelStateInvalidFilter = true;
             });
+
             builder.Services.AddMemoryCache();
             builder.Services.ConfigureRateLimitOptions();
             builder.Services.AddHttpContextAccessor();
@@ -69,11 +74,12 @@ namespace UltimateNetFiApi
             });
             app.UseIpRateLimiting();
             app.UseCors("CorsPolicy");
-
+            app.UseAuthentication();
+            app.UseAuthorization();
             app.UseResponseCaching();
             //Microsoft recommends having UseCors before UseResponseCaching
             app.UseHttpCacheHeaders();
-            app.UseAuthorization();
+
 
             app.MapControllers();
 

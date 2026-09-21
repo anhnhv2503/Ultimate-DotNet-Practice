@@ -3,6 +3,7 @@ using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using Repository;
 
@@ -11,9 +12,11 @@ using Repository;
 namespace UltimateNetFiApi.Migrations
 {
     [DbContext(typeof(RepositoryContext))]
-    partial class RepositoryContextModelSnapshot : ModelSnapshot
+    [Migration("20260921032018_AddRolesToDb")]
+    partial class AddRolesToDb
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -45,6 +48,22 @@ namespace UltimateNetFiApi.Migrations
                     b.HasKey("Id");
 
                     b.ToTable("Companies");
+
+                    b.HasData(
+                        new
+                        {
+                            Id = new Guid("c9d4c053-49b6-410c-bc78-2d54a9991870"),
+                            Address = "583 Wall Dr. Gwynn Oak, MD 21207",
+                            Country = "USA",
+                            Name = "IT_Solutions Ltd"
+                        },
+                        new
+                        {
+                            Id = new Guid("3d490a70-94ce-4d15-9494-5248280c2ce3"),
+                            Address = "312 Forest Avenue, BF 923",
+                            Country = "USA",
+                            Name = "Admin_Solutions Ltd"
+                        });
                 });
 
             modelBuilder.Entity("Entities.Models.Employee", b =>
@@ -75,6 +94,32 @@ namespace UltimateNetFiApi.Migrations
                     b.HasIndex("CompanyId");
 
                     b.ToTable("Employees");
+
+                    b.HasData(
+                        new
+                        {
+                            Id = new Guid("80abbca8-664d-4b20-b5de-024705497d4a"),
+                            Age = 26,
+                            CompanyId = new Guid("c9d4c053-49b6-410c-bc78-2d54a9991870"),
+                            Name = "Sam Raiden",
+                            Position = "Software developer"
+                        },
+                        new
+                        {
+                            Id = new Guid("86dba8c0-d178-41e7-938c-ed49778fb52a"),
+                            Age = 30,
+                            CompanyId = new Guid("c9d4c053-49b6-410c-bc78-2d54a9991870"),
+                            Name = "Jana McLeaf",
+                            Position = "Software developer"
+                        },
+                        new
+                        {
+                            Id = new Guid("021ca3c1-0deb-4afd-ae94-2159a8479811"),
+                            Age = 35,
+                            CompanyId = new Guid("3d490a70-94ce-4d15-9494-5248280c2ce3"),
+                            Name = "Kane Miller",
+                            Position = "Administrator"
+                        });
                 });
 
             modelBuilder.Entity("Entities.Models.User", b =>
@@ -179,15 +224,15 @@ namespace UltimateNetFiApi.Migrations
                     b.HasData(
                         new
                         {
-                            Id = "1ab762bd-5bb1-46fb-9146-af924c43e894",
-                            ConcurrencyStamp = "4d447188-e4b5-4d2e-8894-a09bb6f749db",
+                            Id = "855067ee-f3f9-4f97-be33-4121d9635e9d",
+                            ConcurrencyStamp = "9953d307-5040-4e01-aa90-30d40c4326e7",
                             Name = "Manager",
                             NormalizedName = "MANAGER"
                         },
                         new
                         {
-                            Id = "5cad0b46-2a43-4b64-8563-edfda5155918",
-                            ConcurrencyStamp = "15a31a0b-3bdd-4ed1-9fcb-10af534fec2f",
+                            Id = "44367819-c890-4332-9069-f71896bc16df",
+                            ConcurrencyStamp = "358900bd-0e27-4726-be22-88067238807d",
                             Name = "Administrator",
                             NormalizedName = "ADMINISTRATOR"
                         });
