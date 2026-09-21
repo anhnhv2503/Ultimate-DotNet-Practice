@@ -1,3 +1,4 @@
+using AspNetCoreRateLimit;
 using Microsoft.AspNetCore.HttpOverrides;
 using Microsoft.AspNetCore.Mvc;
 using Presentation;
@@ -31,6 +32,9 @@ namespace UltimateNetFiApi
             {
                 options.SuppressModelStateInvalidFilter = true;
             });
+            builder.Services.AddMemoryCache();
+            builder.Services.ConfigureRateLimitOptions();
+            builder.Services.AddHttpContextAccessor();
             builder.Services.AddScoped<ValidationFilterAttribute>();
             builder.Services.ConfigureResponseCaching();
             builder.Services.ConfigureHttpCacheHeaders();
@@ -63,7 +67,7 @@ namespace UltimateNetFiApi
             {
                 ForwardedHeaders = ForwardedHeaders.All
             });
-
+            app.UseIpRateLimiting();
             app.UseCors("CorsPolicy");
 
             app.UseResponseCaching();
