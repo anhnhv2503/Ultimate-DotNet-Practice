@@ -3,6 +3,7 @@ using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using Repository;
 
@@ -11,9 +12,11 @@ using Repository;
 namespace UltimateNetFiApi.Migrations
 {
     [DbContext(typeof(RepositoryContext))]
-    partial class RepositoryContextModelSnapshot : ModelSnapshot
+    [Migration("20260922155342_InitUserIdentity")]
+    partial class InitUserIdentity
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -221,15 +224,15 @@ namespace UltimateNetFiApi.Migrations
                     b.HasData(
                         new
                         {
-                            Id = "b3ffb4fc-e12c-40e6-a4f3-4ff2755d8217",
-                            ConcurrencyStamp = "ce334fe3-145c-48a4-b6f9-231418197c49",
+                            Id = "f2637ef0-7d5c-4a5f-96b0-bebbd07cb698",
+                            ConcurrencyStamp = "81ff82c2-a7a4-46ca-a18f-8086f70d3d49",
                             Name = "Manager",
                             NormalizedName = "MANAGER"
                         },
                         new
                         {
-                            Id = "fa325708-91ab-49b9-8472-9e45bb0383c2",
-                            ConcurrencyStamp = "2b01b19c-643e-49ad-b983-3103f8692bda",
+                            Id = "80b1e7af-ab1f-4ad0-b9fb-1b80adb09e4f",
+                            ConcurrencyStamp = "e33589dd-9510-453a-9dfa-15a1aef4991f",
                             Name = "Administrator",
                             NormalizedName = "ADMINISTRATOR"
                         });
