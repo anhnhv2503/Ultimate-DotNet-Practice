@@ -1,4 +1,5 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Mvc;
 using Service.Contracts;
 using Shared.Dtos;
 using UltimateNetFiApi.ActionFilters;
@@ -40,6 +41,16 @@ namespace Presentation.Controllers
             {
                 Token = await _service
             .AuthenticationService.CreateToken()
+            });
+        }
+
+        [HttpGet]
+        [Authorize]
+        public IActionResult GetAuthorized()
+        {
+            return Ok(new
+            {
+                message = "Authorized"
             });
         }
     }

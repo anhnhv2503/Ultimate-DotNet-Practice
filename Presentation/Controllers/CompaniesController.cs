@@ -19,7 +19,7 @@ namespace Presentation.Controllers
         }
 
         [HttpGet]
-        [Authorize]
+        // [Authorize]
         public async Task<IActionResult> GetCompanies(int page, int size)
         {
 
