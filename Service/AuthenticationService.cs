@@ -22,12 +22,15 @@ namespace Service
 
         private User? _user;
 
+        private readonly IHttpContextAccessor _httpContextAccessor;
+
         public AuthenticationService( IMapper mapper,
-             UserManager<User> userManager, IConfiguration configuration)
+             UserManager<User> userManager, IConfiguration configuration, IHttpContextAccessor httpContextAccessor)
         {
             _mapper = mapper;
             _userManager = userManager;
             _configuration = configuration;
+            _httpContextAccessor = httpContextAccessor;
         }
 
         public async Task<string> CreateToken()
@@ -47,17 +50,6 @@ namespace Service
                 await _userManager.AddToRoleAsync(user, "Manager");
             return result;
         }
-
-        //public async Task<IdentityResult> SeedingAdmin(UserRegistrationDto userRegistrationDto)
-        //{
-        //    var user = _mapper.Map<User>(userRegistrationDto);
-        //        var result = await _userManager.CreateAsync(user, userRegistrationDto.Password);
-        //    if (result.Succeeded)
-        //    {
-        //        await _userManager.AddToRoleAsync(user, "Administrator");
-        //    }
-        //    return result;
-        //}
 
         public async Task<bool> ValidateUser(AuthentiationRequest authRequest)
         {
@@ -106,13 +98,14 @@ namespace Service
             return claims;
         }
 
-        public Task<User> GetAuthenticatedUser()
+        public async Task<User> GetAuthenticatedUser()
         {
-            //var data = _httpContext.User.FindFirstValue(ClaimTypes.Name);
-            //Console.WriteLine(data);
+            var data = _httpContextAccessor.HttpContext?.User?.FindFirstValue(ClaimTypes.Name); // return username
 
-            //return null;
-            throw new NotImplementedException();
+            var user = await _userManager.FindByNameAsync(data);
+
+            return null;
+            //throw new NotImplementedException();
         }
 
         public async Task<TokenDto> CreateToken(bool populateExp)

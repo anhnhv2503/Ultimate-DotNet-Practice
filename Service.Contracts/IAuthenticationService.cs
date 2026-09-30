@@ -7,7 +7,6 @@ namespace Service.Contracts
     public interface IAuthenticationService
     {
         Task<IdentityResult> RegisterUser(UserRegistrationDto userRegistrationDto);
-        //Task<IdentityResult> SeedingAdmin(UserRegistrationDto userRegistrationDto);
         Task<bool> ValidateUser(AuthentiationRequest authRequest);
         Task<string> CreateToken(); //Deprecated
         Task<TokenDto> CreateToken(bool populateExp);
