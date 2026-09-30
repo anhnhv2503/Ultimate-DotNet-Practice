@@ -1,4 +1,5 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Mvc;
 using Service.Contracts;
 using Shared.Dtos;
 using Shared.Filters;
@@ -35,6 +36,7 @@ namespace Presentation.Controllers
 
         [HttpPost]
         [ServiceFilter(typeof(ValidationFilterAttribute))]
+        [Authorize(Roles = "Administrator")]
         public async Task<IActionResult> CreateEmployee(Guid companyId, [FromBody] EmployeeCreationDto dto)
         {
             var response = await _service.EmployeeService.CreateEmployee(companyId, dto, false);
@@ -43,6 +45,7 @@ namespace Presentation.Controllers
 
         [HttpPost("multi")]
         [ServiceFilter(typeof(ValidationFilterAttribute))]
+        [Authorize(Roles = "Administrator")]
         public async Task<IActionResult> CreateEmployees(Guid companyId, [FromBody] IEnumerable<EmployeeCreationDto> employeeDtos)
         {
             await _service.EmployeeService.CreateEmployees(companyId, employeeDtos, false);

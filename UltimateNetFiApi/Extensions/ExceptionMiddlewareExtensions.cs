@@ -2,6 +2,7 @@
 using Entities.Error;
 using Entities.Exceptions;
 using Microsoft.AspNetCore.Diagnostics;
+using Microsoft.AspNetCore.Mvc;
 
 namespace UltimateNetFiApi.Extensions
 {

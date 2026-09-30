@@ -1,4 +1,6 @@
-﻿using Microsoft.AspNetCore.Authorization;
+﻿using Entities.Error;
+using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Service.Contracts;
 using Shared.Dtos;
@@ -27,7 +29,7 @@ namespace Presentation.Controllers
                 }
                 return BadRequest(ModelState);
             }
-            return StatusCode(201);
+            return StatusCode(201, new {data = result});
 
         }
 
@@ -36,22 +38,32 @@ namespace Presentation.Controllers
         public async Task<IActionResult> Authenticate([FromBody] AuthentiationRequest authRequest)
         {
             if (!await _service.AuthenticationService.ValidateUser(authRequest))
-                return Unauthorized();
-            return Ok(new
-            {
-                Token = await _service
-            .AuthenticationService.CreateToken()
-            });
+                return Unauthorized(new ErrorDetails
+                {
+                    StatusCode = (int) StatusCodes.Status401Unauthorized,
+                    Message = "Invalid Username or Password"
+                });
+
+            var tokenDto = await _service.AuthenticationService
+                .CreateToken(true);
+
+            return Ok(tokenDto);
         }
 
-        [HttpGet]
+        [HttpGet("profile")]
         [Authorize]
-        public IActionResult GetAuthorized()
+        public IActionResult GetAuthenticatedProfile()
         {
-            return Ok(new
-            {
-                message = "Authorized"
-            });
+            return Ok(_service.AuthenticationService.GetAuthenticatedUser());
         }
+
+        [HttpPost("refresh")]
+        public async Task<IActionResult> RefreshToken(TokenDto tokenDto)
+        {
+            var tokenDtoReturn = await _service.AuthenticationService.RefreshToken(tokenDto);
+
+            return Ok(tokenDtoReturn);
+        }
+
     }
 }

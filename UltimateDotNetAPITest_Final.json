@@ -1,0 +1,870 @@
+{
+  "info": {
+    "name": "DotNetAPITest",
+    "description": null,
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+  },
+  "item": [
+    {
+      "name": "Health-Check",
+      "item": [
+        {
+          "name": "ServerCheck",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "description": "",
+            "url": {
+              "raw": "{{baseurl}}/api/check",
+              "protocol": "",
+              "host": [
+                "{{baseurl}}"
+              ],
+              "path": [
+                "api",
+                "check"
+              ],
+              "query": [],
+              "variable": []
+            }
+          }
+        },
+        {
+          "name": "AdminAuthorized",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "auth": {
+              "type": "bearer",
+              "bearer": [
+                {
+                  "key": "token",
+                  "value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJodHRwOi8vc2NoZW1hcy54bWxzb2FwLm9yZy93cy8yMDA1LzA1L2lkZW50aXR5L2NsYWltcy9uYW1lIjoidmlldGFuaCIsImh0dHA6Ly9zY2hlbWFzLnhtbHNvYXAub3JnL3dzLzIwMDUvMDUvaWRlbnRpdHkvY2xhaW1zL25hbWVpZGVudGlmaWVyIjoiNjkzNmYyZTAtYzhlNi00NzZiLWIwN2ItNjQ5NmQ0NjYyNGQ3IiwiaHR0cDovL3NjaGVtYXMubWljcm9zb2Z0LmNvbS93cy8yMDA4LzA2L2lkZW50aXR5L2NsYWltcy9yb2xlIjoiTWFuYWdlciIsImV4cCI6MTc5MDc2MjIwNiwiaXNzIjoiVWx0aW1hdGVBUEkiLCJhdWQiOiJVbHRpbWF0ZU5ldEZpQ2xpZW50In0.nrDQtVbNfXBJ7DUHizyRQg5HZKuF42I8qrXAhl-Lcgw",
+                  "type": "string"
+                }
+              ]
+            },
+            "description": "",
+            "url": {
+              "raw": "{{baseurl}}/api/check/admin/auth",
+              "protocol": "",
+              "host": [
+                "{{baseurl}}"
+              ],
+              "path": [
+                "api",
+                "check",
+                "admin",
+                "auth"
+              ],
+              "query": [],
+              "variable": []
+            }
+          },
+          "response": [
+            {
+              "name": "Forbidden",
+              "originalRequest": {
+                "method": "GET",
+                "header": [],
+                "url": {
+                  "raw": "{{baseurl}}/api/check/admin/auth",
+                  "protocol": "",
+                  "host": [
+                    "{{baseurl}}"
+                  ],
+                  "path": [
+                    "api",
+                    "check",
+                    "admin",
+                    "auth"
+                  ],
+                  "query": [],
+                  "variable": []
+                }
+              },
+              "status": "Forbidden",
+              "code": 403,
+              "header": [
+                {
+                  "key": "content-length",
+                  "value": "0",
+                  "name": "content-length",
+                  "description": "",
+                  "type": "text"
+                },
+                {
+                  "key": "date",
+                  "value": "Wed, 30 Sep 2026 06:42:01 GMT",
+                  "name": "date",
+                  "description": "",
+                  "type": "text"
+                },
+                {
+                  "key": "server",
+                  "value": "Kestrel",
+                  "name": "server",
+                  "description": "",
+                  "type": "text"
+                },
+                {
+                  "key": "x-rate-limit-limit",
+                  "value": "5m",
+                  "name": "x-rate-limit-limit",
+                  "description": "",
+                  "type": "text"
+                },
+                {
+                  "key": "x-rate-limit-remaining",
+                  "value": "26",
+                  "name": "x-rate-limit-remaining",
+                  "description": "",
+                  "type": "text"
+                },
+                {
+                  "key": "x-rate-limit-reset",
+                  "value": "2026-09-30T06:46:40.2442721Z",
+                  "name": "x-rate-limit-reset",
+                  "description": "",
+                  "type": "text"
+                }
+              ],
+              "cookie": [],
+              "body": ""
+            }
+          ]
+        },
+        {
+          "name": "ManagerAuthorized",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "auth": {
+              "type": "bearer",
+              "bearer": [
+                {
+                  "key": "token",
+                  "value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJodHRwOi8vc2NoZW1hcy54bWxzb2FwLm9yZy93cy8yMDA1LzA1L2lkZW50aXR5L2NsYWltcy9uYW1lIjoidmlldGFuaCIsImh0dHA6Ly9zY2hlbWFzLnhtbHNvYXAub3JnL3dzLzIwMDUvMDUvaWRlbnRpdHkvY2xhaW1zL25hbWVpZGVudGlmaWVyIjoiNjkzNmYyZTAtYzhlNi00NzZiLWIwN2ItNjQ5NmQ0NjYyNGQ3IiwiaHR0cDovL3NjaGVtYXMubWljcm9zb2Z0LmNvbS93cy8yMDA4LzA2L2lkZW50aXR5L2NsYWltcy9yb2xlIjoiTWFuYWdlciIsImV4cCI6MTc5MDc2MjIwNiwiaXNzIjoiVWx0aW1hdGVBUEkiLCJhdWQiOiJVbHRpbWF0ZU5ldEZpQ2xpZW50In0.nrDQtVbNfXBJ7DUHizyRQg5HZKuF42I8qrXAhl-Lcgw",
+                  "type": "string"
+                }
+              ]
+            },
+            "description": "",
+            "url": {
+              "raw": "{{baseurl}}/api/check/manager/auth",
+              "protocol": "",
+              "host": [
+                "{{baseurl}}"
+              ],
+              "path": [
+                "api",
+                "check",
+                "manager",
+                "auth"
+              ],
+              "query": [],
+              "variable": []
+            }
+          },
+          "response": [
+            {
+              "name": "Authorized",
+              "originalRequest": {
+                "method": "GET",
+                "header": [],
+                "url": {
+                  "raw": "{{baseurl}}/api/check/manager/auth",
+                  "protocol": "",
+                  "host": [
+                    "{{baseurl}}"
+                  ],
+                  "path": [
+                    "api",
+                    "check",
+                    "manager",
+                    "auth"
+                  ],
+                  "query": [],
+                  "variable": []
+                }
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "content-type",
+                  "value": "application/json; charset=utf-8",
+                  "name": "content-type",
+                  "description": "",
+                  "type": "text"
+                },
+                {
+                  "key": "date",
+                  "value": "Wed, 30 Sep 2026 06:42:22 GMT",
+                  "name": "date",
+                  "description": "",
+                  "type": "text"
+                },
+                {
+                  "key": "server",
+                  "value": "Kestrel",
+                  "name": "server",
+                  "description": "",
+                  "type": "text"
+                },
+                {
+                  "key": "cache-control",
+                  "value": "private,max-age=88,must-revalidate",
+                  "name": "cache-control",
+                  "description": "",
+                  "type": "text"
+                },
+                {
+                  "key": "etag",
+                  "value": "\"AF3B15830200C0F9B525146CB5D3A5D4\"",
+                  "name": "etag",
+                  "description": "",
+                  "type": "text"
+                },
+                {
+                  "key": "expires",
+                  "value": "Wed, 30 Sep 2026 06:43:51 GMT",
+                  "name": "expires",
+                  "description": "",
+                  "type": "text"
+                },
+                {
+                  "key": "last-modified",
+                  "value": "Wed, 30 Sep 2026 06:42:23 GMT",
+                  "name": "last-modified",
+                  "description": "",
+                  "type": "text"
+                },
+                {
+                  "key": "transfer-encoding",
+                  "value": "chunked",
+                  "name": "transfer-encoding",
+                  "description": "",
+                  "type": "text"
+                },
+                {
+                  "key": "vary",
+                  "value": "Accept, Accept-Language, Accept-Encoding",
+                  "name": "vary",
+                  "description": "",
+                  "type": "text"
+                },
+                {
+                  "key": "x-rate-limit-limit",
+                  "value": "5m",
+                  "name": "x-rate-limit-limit",
+                  "description": "",
+                  "type": "text"
+                },
+                {
+                  "key": "x-rate-limit-remaining",
+                  "value": "24",
+                  "name": "x-rate-limit-remaining",
+                  "description": "",
+                  "type": "text"
+                },
+                {
+                  "key": "x-rate-limit-reset",
+                  "value": "2026-09-30T06:46:40.2442721Z",
+                  "name": "x-rate-limit-reset",
+                  "description": "",
+                  "type": "text"
+                }
+              ],
+              "cookie": [],
+              "body": "{\n  \"message\": \"Manager Authorized\",\n  \"role\": \"Manager\"\n}",
+              "_postman_previewlanguage": "json"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "name": "Get Companies",
+      "request": {
+        "method": "GET",
+        "header": [],
+        "auth": {
+          "type": "bearer",
+          "bearer": [
+            {
+              "key": "token",
+              "value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJodHRwOi8vc2NoZW1hcy54bWxzb2FwLm9yZy93cy8yMDA1LzA1L2lkZW50aXR5L2NsYWltcy9uYW1lIjoiYy1oYXJyaXMudHJ1b25nIiwiaHR0cDovL3NjaGVtYXMubWljcm9zb2Z0LmNvbS93cy8yMDA4LzA2L2lkZW50aXR5L2NsYWltcy9yb2xlIjoiTWFuYWdlciIsImV4cCI6MTc4OTk3NDc2NywiaXNzIjoiVWx0aW1hdGVBUEkiLCJhdWQiOiJVbHRpbWF0ZU5ldEZpQ2xpZW50In0.izzVHPJSdObbUjXsSnY7BwHEHwzN-83N5TRVkc0a7xM",
+              "type": "string"
+            }
+          ]
+        },
+        "description": "",
+        "url": {
+          "raw": "{{baseurl}}/api/companies?page=1&size=5",
+          "protocol": "",
+          "host": [
+            "{{baseurl}}"
+          ],
+          "path": [
+            "api",
+            "companies?page=1&size=5"
+          ],
+          "query": [
+            {
+              "key": "page",
+              "value": "1"
+            },
+            {
+              "key": "size",
+              "value": "5"
+            }
+          ],
+          "variable": []
+        }
+      }
+    },
+    {
+      "name": "Get Company",
+      "request": {
+        "method": "GET",
+        "header": [],
+        "description": "",
+        "url": {
+          "raw": "http://localhost:5138/api/companies/81d5cee9-6b6f-4663-5e3e-08df1eb94b09",
+          "protocol": "http",
+          "host": [
+            "localhost:5138"
+          ],
+          "path": [
+            "api",
+            "companies",
+            "81d5cee9-6b6f-4663-5e3e-08df1eb94b09"
+          ],
+          "query": [],
+          "variable": []
+        }
+      }
+    },
+    {
+      "name": "Get Employees By Company",
+      "request": {
+        "method": "GET",
+        "header": [],
+        "description": "",
+        "url": {
+          "raw": "http://localhost:5138/api/companies/81d5cee9-6b6f-4663-5e3e-08df1eb94b09/employees?page=1&size=5",
+          "protocol": "http",
+          "host": [
+            "localhost:5138"
+          ],
+          "path": [
+            "api",
+            "companies",
+            "81d5cee9-6b6f-4663-5e3e-08df1eb94b09",
+            "employees"
+          ],
+          "query": [
+            {
+              "key": "page",
+              "value": "1"
+            },
+            {
+              "key": "size",
+              "value": "5"
+            }
+          ],
+          "variable": []
+        }
+      }
+    },
+    {
+      "name": "Get Employee By Company and EmployeeID",
+      "request": {
+        "method": "GET",
+        "header": [],
+        "description": "",
+        "url": {
+          "raw": "http://localhost:5138/api/companies/c9d4c053-49b6-410c-bc78-2d54a9991870/employees/80abbca8-664d-4b20-b5de-024705497d4a",
+          "protocol": "http",
+          "host": [
+            "localhost:5138"
+          ],
+          "path": [
+            "api",
+            "companies",
+            "c9d4c053-49b6-410c-bc78-2d54a9991870",
+            "employees",
+            "80abbca8-664d-4b20-b5de-024705497d4a"
+          ],
+          "query": [],
+          "variable": []
+        }
+      }
+    },
+    {
+      "name": "Create Employee",
+      "request": {
+        "method": "POST",
+        "header": [],
+        "description": "",
+        "url": {
+          "raw": "http://localhost:5138/api/companies/81d5cee9-6b6f-4663-5e3e-08df1eb94b09/employees/multi",
+          "protocol": "http",
+          "host": [
+            "localhost:5138"
+          ],
+          "path": [
+            "api",
+            "companies",
+            "81d5cee9-6b6f-4663-5e3e-08df1eb94b09",
+            "employees",
+            "multi"
+          ],
+          "query": [],
+          "variable": []
+        },
+        "body": {
+          "mode": "raw",
+          "raw": "{\n  \"name\": \"Johnny Nguyen\",\n  \"position\": \"Some position with invalid length\",\n  \"age\": 22\n}",
+          "options": {
+            "raw": {
+              "language": "json"
+            }
+          }
+        }
+      }
+    },
+    {
+      "name": "Registration",
+      "request": {
+        "method": "POST",
+        "header": [],
+        "description": "",
+        "url": {
+          "raw": "{{baseurl}}/api/auth",
+          "protocol": "",
+          "host": [
+            "{{baseurl}}"
+          ],
+          "path": [
+            "api",
+            "auth"
+          ],
+          "query": [],
+          "variable": []
+        },
+        "body": {
+          "mode": "raw",
+          "raw": "{\n  \"firstname\": \"Nguyen Ha\",\n  \"lastname\": \"Viet Anh\",\n  \"username\": \"vietanh\",\n  \"password\": \"vietanhdeptraivailonahaha1\",\n  \"email\": \"vietanh@gmail.com\",\n  \"phonenumber\": \"0123456780\"\n}",
+          "options": {
+            "raw": {
+              "language": "json"
+            }
+          }
+        }
+      },
+      "response": [
+        {
+          "name": "Create Admin",
+          "originalRequest": {
+            "method": "POST",
+            "header": [],
+            "url": {
+              "raw": "{{baseurl}}/api/auth",
+              "protocol": "",
+              "host": [
+                "{{baseurl}}"
+              ],
+              "path": [
+                "api",
+                "auth"
+              ],
+              "query": [],
+              "variable": []
+            },
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"firstname\":\"Ad Van\",\n  \"lastname\":\"Min\",\n  \"username\":\"admin\",\n  \"password\":\"admindeptraivai123\",\n  \"email\":\"admin@gmail.com\",\n  \"phonenumber\":\"0123456780\"\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "status": "Created",
+          "code": 201,
+          "header": [
+            {
+              "key": "content-length",
+              "value": "0",
+              "name": "content-length",
+              "description": "",
+              "type": "text"
+            },
+            {
+              "key": "date",
+              "value": "Wed, 30 Sep 2026 07:02:14 GMT",
+              "name": "date",
+              "description": "",
+              "type": "text"
+            },
+            {
+              "key": "server",
+              "value": "Kestrel",
+              "name": "server",
+              "description": "",
+              "type": "text"
+            },
+            {
+              "key": "cache-control",
+              "value": "private,max-age=88,must-revalidate",
+              "name": "cache-control",
+              "description": "",
+              "type": "text"
+            },
+            {
+              "key": "etag",
+              "value": "\"39B1CC7ABB8A629F504D50F66A062E86\"",
+              "name": "etag",
+              "description": "",
+              "type": "text"
+            },
+            {
+              "key": "expires",
+              "value": "Wed, 30 Sep 2026 07:03:42 GMT",
+              "name": "expires",
+              "description": "",
+              "type": "text"
+            },
+            {
+              "key": "last-modified",
+              "value": "Wed, 30 Sep 2026 07:02:14 GMT",
+              "name": "last-modified",
+              "description": "",
+              "type": "text"
+            },
+            {
+              "key": "vary",
+              "value": "Accept, Accept-Language, Accept-Encoding",
+              "name": "vary",
+              "description": "",
+              "type": "text"
+            },
+            {
+              "key": "x-rate-limit-limit",
+              "value": "5m",
+              "name": "x-rate-limit-limit",
+              "description": "",
+              "type": "text"
+            },
+            {
+              "key": "x-rate-limit-remaining",
+              "value": "25",
+              "name": "x-rate-limit-remaining",
+              "description": "",
+              "type": "text"
+            },
+            {
+              "key": "x-rate-limit-reset",
+              "value": "2026-09-30T07:06:17.9405151Z",
+              "name": "x-rate-limit-reset",
+              "description": "",
+              "type": "text"
+            }
+          ],
+          "cookie": [],
+          "body": ""
+        }
+      ]
+    },
+    {
+      "name": "Login",
+      "request": {
+        "method": "POST",
+        "header": [],
+        "description": "",
+        "url": {
+          "raw": "{{baseurl}}/api/auth/login",
+          "protocol": "",
+          "host": [
+            "{{baseurl}}"
+          ],
+          "path": [
+            "api",
+            "auth",
+            "login"
+          ],
+          "query": [],
+          "variable": []
+        },
+        "body": {
+          "mode": "raw",
+          "raw": "{\n  \"username\": \"vietanh\",\n  \"password\": \"vietanhdeptraivailonahaha1\"\n}",
+          "options": {
+            "raw": {
+              "language": "json"
+            }
+          }
+        }
+      }
+    },
+    {
+      "name": "Create Company",
+      "request": {
+        "method": "POST",
+        "header": [],
+        "description": "",
+        "url": {
+          "raw": "{{baseurl}}/api/companies",
+          "protocol": "",
+          "host": [
+            "{{baseurl}}"
+          ],
+          "path": [
+            "api",
+            "companies"
+          ],
+          "query": [],
+          "variable": []
+        },
+        "body": {
+          "mode": "raw",
+          "raw": "{\n  \"name\":\"DXC Technology\",\n  \"address\":\"Ho Chi minh City\",\n  \"country\":\"Vietnam\"\n}",
+          "options": {
+            "raw": {
+              "language": "json"
+            }
+          }
+        }
+      }
+    },
+    {
+      "name": "Create Multi Employees",
+      "request": {
+        "method": "POST",
+        "header": [],
+        "description": "",
+        "url": {
+          "raw": "{{baseurl}}/api/companies/81d5cee9-6b6f-4663-5e3e-08df1eb94b09/employees/multi",
+          "protocol": "",
+          "host": [
+            "{{baseurl}}"
+          ],
+          "path": [
+            "api",
+            "companies",
+            "81d5cee9-6b6f-4663-5e3e-08df1eb94b09",
+            "employees",
+            "multi"
+          ],
+          "query": [],
+          "variable": []
+        },
+        "body": {
+          "mode": "raw",
+          "raw": "[\n  {\n    \"name\": \"Johnny Nguyen\",\n    \"position\": \"DEV\",\n    \"age\": 23\n  },\n  {\n    \"name\": \"Victor Nguyen\",\n    \"position\": \"DEV\",\n    \"age\": 24\n  },\n  {\n    \"name\": \"Peter Lam\",\n    \"position\": \"DEV\",\n    \"age\": 22\n  },\n  {\n    \"name\": \"Harris Truong\",\n    \"position\": \"DEV Leader\",\n    \"age\": 22\n  },\n  {\n    \"name\": \"Joseph Quang\",\n    \"position\": \"DEV\",\n    \"age\": 22\n  },\n  {\n    \"name\": \"Larry Ly\",\n    \"position\": \"DEV\",\n    \"age\": 23\n  },\n  {\n    \"name\": \"Clark Tang\",\n    \"position\": \"AI\",\n    \"age\": 21\n  },\n  {\n    \"name\": \"Nolan Vu\",\n    \"position\": \"DevOps\",\n    \"age\": 21\n  }\n]",
+          "options": {
+            "raw": {
+              "language": "json"
+            }
+          }
+        }
+      }
+    },
+    {
+      "name": "Get Authenticated Profile",
+      "request": {
+        "method": "GET",
+        "header": [],
+        "auth": {
+          "type": "bearer",
+          "bearer": [
+            {
+              "key": "token",
+              "value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJodHRwOi8vc2NoZW1hcy54bWxzb2FwLm9yZy93cy8yMDA1LzA1L2lkZW50aXR5L2NsYWltcy9uYW1lIjoidmlldGFuaCIsImh0dHA6Ly9zY2hlbWFzLnhtbHNvYXAub3JnL3dzLzIwMDUvMDUvaWRlbnRpdHkvY2xhaW1zL25hbWVpZGVudGlmaWVyIjoiNjkzNmYyZTAtYzhlNi00NzZiLWIwN2ItNjQ5NmQ0NjYyNGQ3IiwiaHR0cDovL3NjaGVtYXMubWljcm9zb2Z0LmNvbS93cy8yMDA4LzA2L2lkZW50aXR5L2NsYWltcy9yb2xlIjoiTWFuYWdlciIsImV4cCI6MTc5MDc2MjIwNiwiaXNzIjoiVWx0aW1hdGVBUEkiLCJhdWQiOiJVbHRpbWF0ZU5ldEZpQ2xpZW50In0.nrDQtVbNfXBJ7DUHizyRQg5HZKuF42I8qrXAhl-Lcgw",
+              "type": "string"
+            }
+          ]
+        },
+        "description": "",
+        "url": {
+          "raw": "{{baseurl}}/api/auth/profile",
+          "protocol": "",
+          "host": [
+            "{{baseurl}}"
+          ],
+          "path": [
+            "api",
+            "auth",
+            "profile"
+          ],
+          "query": [],
+          "variable": []
+        }
+      }
+    },
+    {
+      "name": "Refresh Token",
+      "request": {
+        "method": "POST",
+        "header": [],
+        "description": "",
+        "url": {
+          "raw": "{{baseurl}}/api/auth/refresh",
+          "protocol": "",
+          "host": [
+            "{{baseurl}}"
+          ],
+          "path": [
+            "api",
+            "auth",
+            "refresh"
+          ],
+          "query": [],
+          "variable": []
+        },
+        "body": {
+          "mode": "raw",
+          "raw": "{\n  \"accessToken\": \"eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJodHRwOi8vc2NoZW1hcy54bWxzb2FwLm9yZy93cy8yMDA1LzA1L2lkZW50aXR5L2NsYWltcy9uYW1lIjoidmlldGFuaCIsImh0dHA6Ly9zY2hlbWFzLnhtbHNvYXAub3JnL3dzLzIwMDUvMDUvaWRlbnRpdHkvY2xhaW1zL25hbWVpZGVudGlmaWVyIjoiNjkzNmYyZTAtYzhlNi00NzZiLWIwN2ItNjQ5NmQ0NjYyNGQ3IiwiaHR0cDovL3NjaGVtYXMubWljcm9zb2Z0LmNvbS93cy8yMDA4LzA2L2lkZW50aXR5L2NsYWltcy9yb2xlIjoiTWFuYWdlciIsImV4cCI6MTc5MDc2MzE2MiwiaXNzIjoiVWx0aW1hdGVBUEkiLCJhdWQiOiJVbHRpbWF0ZU5ldEZpQ2xpZW50In0.llPcm3qpB2w_f6c0A2VQ7GMQIC6jxDRMYrV1QZgtR3k\",\n  \"refreshToken\": \"YF8cphR7Z8+GbNWTNxx5MMW0HStKg/5++XHc1CS3BJM=\"\n}",
+          "options": {
+            "raw": {
+              "language": "json"
+            }
+          }
+        }
+      },
+      "response": [
+        {
+          "name": "Refresh Token",
+          "originalRequest": {
+            "method": "POST",
+            "header": [],
+            "url": {
+              "raw": "{{baseurl}}/api/auth/refresh",
+              "protocol": "",
+              "host": [
+                "{{baseurl}}"
+              ],
+              "path": [
+                "api",
+                "auth",
+                "refresh"
+              ],
+              "query": [],
+              "variable": []
+            },
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"accessToken\": \"eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJodHRwOi8vc2NoZW1hcy54bWxzb2FwLm9yZy93cy8yMDA1LzA1L2lkZW50aXR5L2NsYWltcy9uYW1lIjoidmlldGFuaCIsImh0dHA6Ly9zY2hlbWFzLnhtbHNvYXAub3JnL3dzLzIwMDUvMDUvaWRlbnRpdHkvY2xhaW1zL25hbWVpZGVudGlmaWVyIjoiNjkzNmYyZTAtYzhlNi00NzZiLWIwN2ItNjQ5NmQ0NjYyNGQ3IiwiaHR0cDovL3NjaGVtYXMubWljcm9zb2Z0LmNvbS93cy8yMDA4LzA2L2lkZW50aXR5L2NsYWltcy9yb2xlIjoiTWFuYWdlciIsImV4cCI6MTc5MDc2MzE2MiwiaXNzIjoiVWx0aW1hdGVBUEkiLCJhdWQiOiJVbHRpbWF0ZU5ldEZpQ2xpZW50In0.llPcm3qpB2w_f6c0A2VQ7GMQIC6jxDRMYrV1QZgtR3k\",\n  \"refreshToken\": \"YF8cphR7Z8+GbNWTNxx5MMW0HStKg/5++XHc1CS3BJM=\"\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "status": "OK",
+          "code": 200,
+          "header": [
+            {
+              "key": "content-type",
+              "value": "application/json; charset=utf-8",
+              "name": "content-type",
+              "description": "",
+              "type": "text"
+            },
+            {
+              "key": "date",
+              "value": "Wed, 30 Sep 2026 09:17:50 GMT",
+              "name": "date",
+              "description": "",
+              "type": "text"
+            },
+            {
+              "key": "server",
+              "value": "Kestrel",
+              "name": "server",
+              "description": "",
+              "type": "text"
+            },
+            {
+              "key": "cache-control",
+              "value": "private,max-age=88,must-revalidate",
+              "name": "cache-control",
+              "description": "",
+              "type": "text"
+            },
+            {
+              "key": "etag",
+              "value": "\"A7F9FBC84950F8F3E5E4FA25594DECF6\"",
+              "name": "etag",
+              "description": "",
+              "type": "text"
+            },
+            {
+              "key": "expires",
+              "value": "Wed, 30 Sep 2026 09:19:19 GMT",
+              "name": "expires",
+              "description": "",
+              "type": "text"
+            },
+            {
+              "key": "last-modified",
+              "value": "Wed, 30 Sep 2026 09:17:51 GMT",
+              "name": "last-modified",
+              "description": "",
+              "type": "text"
+            },
+            {
+              "key": "transfer-encoding",
+              "value": "chunked",
+              "name": "transfer-encoding",
+              "description": "",
+              "type": "text"
+            },
+            {
+              "key": "vary",
+              "value": "Accept, Accept-Language, Accept-Encoding",
+              "name": "vary",
+              "description": "",
+              "type": "text"
+            },
+            {
+              "key": "x-rate-limit-limit",
+              "value": "5m",
+              "name": "x-rate-limit-limit",
+              "description": "",
+              "type": "text"
+            },
+            {
+              "key": "x-rate-limit-remaining",
+              "value": "29",
+              "name": "x-rate-limit-remaining",
+              "description": "",
+              "type": "text"
+            },
+            {
+              "key": "x-rate-limit-reset",
+              "value": "2026-09-30T09:22:49.7663766Z",
+              "name": "x-rate-limit-reset",
+              "description": "",
+              "type": "text"
+            }
+          ],
+          "cookie": [],
+          "body": "{\n  \"accessToken\": \"eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJodHRwOi8vc2NoZW1hcy54bWxzb2FwLm9yZy93cy8yMDA1LzA1L2lkZW50aXR5L2NsYWltcy9uYW1lIjoidmlldGFuaCIsImh0dHA6Ly9zY2hlbWFzLnhtbHNvYXAub3JnL3dzLzIwMDUvMDUvaWRlbnRpdHkvY2xhaW1zL25hbWVpZGVudGlmaWVyIjoiNjkzNmYyZTAtYzhlNi00NzZiLWIwN2ItNjQ5NmQ0NjYyNGQ3IiwiaHR0cDovL3NjaGVtYXMubWljcm9zb2Z0LmNvbS93cy8yMDA4LzA2L2lkZW50aXR5L2NsYWltcy9yb2xlIjoiTWFuYWdlciIsImV4cCI6MTc5MDc2MzQ3MSwiaXNzIjoiVWx0aW1hdGVBUEkiLCJhdWQiOiJVbHRpbWF0ZU5ldEZpQ2xpZW50In0.XOX3U-dB0loVDltW6yUlCHPr5zHOU2EiqgChC9Lav2c\",\n  \"refreshToken\": \"omzlFPDXBa3LbVKaFerSFLKowHNj+LnIGd0BI9YxZVI=\"\n}",
+          "_postman_previewlanguage": "json"
+        }
+      ]
+    }
+  ],
+  "variable": [
+    {
+      "key": "baseurl",
+      "value": "",
+      "type": "default"
+    }
+  ]
+}

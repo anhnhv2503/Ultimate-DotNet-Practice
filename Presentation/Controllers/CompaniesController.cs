@@ -19,7 +19,6 @@ namespace Presentation.Controllers
         }
 
         [HttpGet]
-        // [Authorize]
         public async Task<IActionResult> GetCompanies(int page, int size)
         {
 
@@ -41,6 +40,7 @@ namespace Presentation.Controllers
 
         [HttpPost]
         [ServiceFilter(typeof(ValidationFilterAttribute))]
+        [Authorize(Roles = "Administrator")]
         public async Task<IActionResult> CreateCompany([FromBody] CompanyCreationDto dto)
         {
 
