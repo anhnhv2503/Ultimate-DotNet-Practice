@@ -11,6 +11,7 @@ namespace Service.Contracts
         Task<string> CreateToken(); //Deprecated
         Task<TokenDto> CreateToken(bool populateExp);
         Task<User> GetAuthenticatedUser();
+        Task<UserDto> GetAuthenticatedUserDto();
         Task<TokenDto> RefreshToken(TokenDto tokenDto);
     }
 }

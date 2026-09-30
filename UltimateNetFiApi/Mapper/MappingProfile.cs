@@ -23,6 +23,8 @@ namespace UltimateNetFiApi.Mapper
 
             CreateMap<UserRegistrationDto, User>();
             
+            CreateMap<User, UserDto>();
+            
         }
     }
 }

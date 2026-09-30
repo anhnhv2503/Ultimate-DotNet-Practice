@@ -52,9 +52,9 @@ namespace Presentation.Controllers
 
         [HttpGet("profile")]
         [Authorize]
-        public IActionResult GetAuthenticatedProfile()
+        public async Task<IActionResult> GetAuthenticatedProfile()
         {
-            return Ok(_service.AuthenticationService.GetAuthenticatedUser());
+            return Ok(await _service.AuthenticationService.GetAuthenticatedUserDto());
         }
 
         [HttpPost("refresh")]

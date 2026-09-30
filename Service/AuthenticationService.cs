@@ -100,12 +100,16 @@ namespace Service
 
         public async Task<User> GetAuthenticatedUser()
         {
-            var data = _httpContextAccessor.HttpContext?.User?.FindFirstValue(ClaimTypes.Name); // return username
+            var user = await _userManager.GetUserAsync(_httpContextAccessor.HttpContext.User);
+            return user;
+        }
 
-            var user = await _userManager.FindByNameAsync(data);
-
-            return null;
-            //throw new NotImplementedException();
+        public async Task<UserDto> GetAuthenticatedUserDto()
+        {
+            var user = await GetAuthenticatedUser();
+            
+            var userDto = _mapper.Map<UserDto>(user);
+            return userDto;
         }
 
         public async Task<TokenDto> CreateToken(bool populateExp)
